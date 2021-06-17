@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
     {
         //printf("Please enter the file name in as a command line argument!\n");
     }
-    FILE *fptr = fopen(argv[1], "r");
+    FILE *fptr = fopen(argv[1], "r+");
 
     if (fptr == NULL)
     {
@@ -28,9 +28,5 @@ int main(int argc, char const *argv[])
     buff[k] = '\0';
     fwrite(buff, k, sizeof(char), fptr);
     int i=k-1;
-    while(i>=0){
-        printf("%c",buff[i--]);
-    }
-
     return 0;
 }
