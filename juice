@@ -1,37 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAXSIZE 100000
-
+ 
 int main(int argc, char const *argv[])
 {
+    // check the command line argument which must cointain the file name
     if (argc <= 1)
     {
-        //printf("Please enter the file name in as a command line argument!\n");
+        printf("Please enter the file name in as a command line argument!\n");
     }
+    // open the file
     FILE *fptr = fopen(argv[1], "r+");
-
+ 
+    // check if file open was successfull
     if (fptr == NULL)
     {
         printf("File with name %s does not exist!\n", argv[1]);
         exit(1);
     }
-
+ 
+    // declare variable to store data
     char buff[MAXSIZE];
     char ch;
     int k = 0;
-    char swap ;
-    fseek(fptr, 0, SEEK_SET);
+ 
+    // read all the data char by char
     while ((ch = fgetc(fptr)) != EOF)
     {
         buff[k++] = ch;
     }
-
+    
+    // terminate the string;
     buff[k] = '\0';
-    for(k ; k > sizeof(ch) ;k++)
-        swap = buff[k];
-        buff[k] = buff[k-1];
-        buff[k-1] = swap;
+    
+    // reset offset to 0
+    fseek(fptr, 0, SEEK_SET);
+ 
+    // reverse the data
+    for(int i = 0; i < k / 2; ++i){
+        char tmp = buff[i];
+        buff[i] = buff[k - i - 1];
+        buff[k - i - 1] = tmp;
+    }
+ 
+    // write back to file
     fwrite(buff, k, sizeof(char), fptr);
-    int i=k-1;
     return 0;
 }
