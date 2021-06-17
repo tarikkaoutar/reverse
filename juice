@@ -19,6 +19,7 @@ int main(int argc, char const *argv[])
     char buff[MAXSIZE];
     char ch;
     int k = 0;
+    fseek(fptr, 0, SEET_SET)
     while ((ch = fgetc(fptr)) != EOF)
     {
         buff[k++] = ch;
